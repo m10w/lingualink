@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinguaLink Translator</title>
+</head>
+<body>
+    <div class="container">
+        <h1>LinguaLink Translator</h1>
+        <form id="translate-form">
+            <input type="text" id="word" placeholder="Enter a word" required>
+            <select id="language">
+                <option value="de">German</option>
+                <option value="fr">French</option>
+                <option value="es">Spanish</option>
+                <!-- Add more languages as needed -->
+            </select>
+            <button type="submit">Translate</button>
+        </form>
+        <div id="translation-result"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('#translate-form').on('submit', function(event) {
+            event.preventDefault();
+            const word = $('#word').val();
+            const language = $('#language').val();
+
+            $.ajax({
+                url: '/translate',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ word: word, language: language }),
+                success: function(response) {
+                    $('#translation-result').text(response.translation);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

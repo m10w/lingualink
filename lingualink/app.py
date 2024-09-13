@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from lingualink.models.translation import translate_text
+from utils.wikipedia import get_wikipedia_translation
 import logging
 
 logging.basicConfig(level=logging.INFO)
@@ -23,8 +24,16 @@ def translate():
         return jsonify({'error': 'Invalid input, please provide a word and a language.'}), 400
     # Use the translation model to translate the word
     try:
-        translated_word = translate_text(word, language)
-        return jsonify({'translation': translated_word})
+        # Get Wikipedia translation
+        wikipedia_translation = get_wikipedia_translation(word, language)
+
+        # Get machine translation
+        machine_translation = translate_text(word, language)
+
+        return jsonify({
+            'wikipedia_translation': wikipedia_translation or 'No Wikipedia translation available',
+            'machine_translation': machine_translation
+        })
     except ValueError as e:
         return jsonify({'error': str(e)}), 400
 

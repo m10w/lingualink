@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-from models.translation import translate_text
+from lingualink.models.translation import translate_text
 
 app = Flask(__name__)
 

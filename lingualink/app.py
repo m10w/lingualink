@@ -15,6 +15,8 @@ def translate():
     word = data.get('word')
     language = data.get('language')
 
+    if not word or not language:
+        return jsonify({'error': 'Invalid input, please provide a word and a language.'}), 400
     # Use the translation model to translate the word
     try:
         translated_word = translate_text(word, language)

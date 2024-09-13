@@ -1,4 +1,5 @@
 from transformers import MarianMTModel, MarianTokenizer
+from functools import lru_cache
 
 # Dictionary to store the model name per language code
 model_name_dict = {
@@ -18,6 +19,7 @@ def load_model(language_code):
         raise ValueError(f"No model available for language code {language_code}")
 
 # Function to perform the translation
+@lru_cache(maxsize=100)
 def translate_text(text, language_code):
     model, tokenizer = load_model(language_code)
     inputs = tokenizer.encode(text, return_tensors="pt", padding=True)

@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify
 from lingualink.models.translation import translate_text
 from utils.wikipedia import get_wikipedia_translation
 import logging
+from supported_languages import supported_languages
 
 logging.basicConfig(level=logging.INFO)
 
@@ -10,7 +11,7 @@ app = Flask(__name__)
 # Home route
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', languages=supported_languages)
 
 # Translation route (uses the translation model logic)
 @app.route('/translate', methods=['POST'])
@@ -20,19 +21,23 @@ def translate():
     language = data.get('language')
     logging.info(f"Received word: {word} for language: {language}")
 
-    if not word or not language:
-        return jsonify({'error': 'Invalid input, please provide a word and a language.'}), 400
-    # Use the translation model to translate the word
-    try:
-        # Get Wikipedia translation
-        wikipedia_translation = get_wikipedia_translation(word, language)
+    if not word or not language or language not in supported_languages:
+        return jsonify({'error': 'Invalid input, please provide a word and a valid language.'}), 400
 
-        # Get machine translation
-        machine_translation = translate_text(word, language)
+   wikipedia_translation = None
+   machine_translation = None
+
+   # check if the selected language is supported by wikipedia
+   if supported_language[language]['wikipedia']:
+       wikipedia_translation = get_wikipedia_translation(word, language)
+
+   # check if the selected language is supported by machine translation
+   if supported_language[language]['machine']:
+       machine_translation = translate_text(word, language)
 
         return jsonify({
             'wikipedia_translation': wikipedia_translation or 'No Wikipedia translation available',
-            'machine_translation': machine_translation
+            'machine_translation': machine_translation or 'No Machine translation available'
         })
     except ValueError as e:
         return jsonify({'error': str(e)}), 400

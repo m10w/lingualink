@@ -7,19 +7,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container">
-        <h1>LinguaLink Translator</h1>
-        <form id="translate-form">
-            <input type="text" id="word" placeholder="Enter a word" required>
-            <select id="language">
-                <option value="de">German</option>
-                <option value="fr">French</option>
-                <option value="es">Spanish</option>
-                <!-- Add more languages as needed -->
-            </select>
-            <button type="submit">Translate</button>
-        </form>
-        <div id="translation-result"></div>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">LinguaLink Translator</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <form id="translate-form">
+                    <div class="input-group mb-3">
+                        <input type="text" id="word" class="form-control" placeholder="Enter a word" required>
+                        <select id="language" class="form-select">
+                            <option value="de">German</option>
+                            <option value="fr">French</option>
+                            <option value="es">Spanish</option>
+                            <!-- Add more languages as needed -->
+                        </select>
+                        <button type="submit" class="btn btn-primary">Translate</button>
+                    </div>
+                </form>
+                <div id="result" class="mt-4">
+                    <h4>Translation Results</h4>
+                    <p><strong>Wikipedia translation:</strong> <span id="wikipedia-translation">N/A</span></p>
+                    <p><strong>Machine translation:</strong> <span id="machine-translation">N/A</span></p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -35,11 +45,15 @@
                 contentType: 'application/json',
                 data: JSON.stringify({ word: word, language: language }),
                 success: function(response) {
-                    $('#translation-result').text(response.translation);
+                    $('#wikipedia-translation').text(response.wikipedia_translation || 'N/A');
+                    $('#machine-translation').text(response.machine_translation || 'N/A');
+                },
+                error: function() {
+                    $('#wikipedia-translation').text('Error retrieving translation');
+                    $('#machine-translation').text('Error retrieving translation');
                 }
             });
         });
     </script>
 </body>
 </html>
-

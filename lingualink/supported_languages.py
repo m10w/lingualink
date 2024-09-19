@@ -6,4 +6,5 @@ supported_languages = {
     'fr': {'name': 'French', 'wikipedia': True, 'machine': True},
     'nl': {'name': 'Dutch', 'wikipedia': True, 'machine': False},
     'fa': {'name': 'Farsi', 'wikipedia': True, 'machine': False},
+    'es': {'name': 'Spanish', 'wikipedia': True, 'machine': False}
 }

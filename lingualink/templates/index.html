@@ -12,16 +12,19 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <form id="translate-form">
-                    <div class="input-group mb-3">
+                    <div class="mb-3">
                         <input type="text" id="word" class="form-control" placeholder="Enter a word" required>
-                        <select id="language" class="form-select">
-                            <option value="de">German</option>
-                            <option value="fr">French</option>
-                            <option value="es">Spanish</option>
-                            <!-- Add more languages as needed -->
-                        </select>
-                        <button type="submit" class="btn btn-primary">Translate</button>
                     </div>
+                    <div class="mb-3">
+                        <label for="language">Target Language:</label>
+                        <select id="language" class="form-select">
+                            <option value="">Select a language</option>
+                            {% for lang_code, lang_info in languages.items() %}
+                                <option value="{{ lang_code }}">{{ lang_info['name'] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Translate</button>
                 </form>
                 <div id="result" class="mt-4">
                     <h4>Translation Results</h4>
@@ -43,7 +46,10 @@
                 url: '/translate',
                 method: 'POST',
                 contentType: 'application/json',
-                data: JSON.stringify({ word: word, language: language }),
+                data: JSON.stringify({
+                    word: word,
+                    language: language
+                }),
                 success: function(response) {
                     $('#wikipedia-translation').text(response.wikipedia_translation || 'N/A');
                     $('#machine-translation').text(response.machine_translation || 'N/A');
@@ -57,3 +63,4 @@
     </script>
 </body>
 </html>
+

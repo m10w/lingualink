@@ -21,4 +21,3 @@ def get_wikipedia_translation(word, target_language):
             return langlinks[0]['*']  # Return the translated title in the target language
 
     return None  # If no translation is found
-

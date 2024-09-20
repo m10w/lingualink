@@ -34,4 +34,3 @@ def translate_text(text, language_code):
     translated = model.generate(inputs)
     translated_text = tokenizer.decode(translated[0], skip_special_tokens=True)
     return translated_text
-

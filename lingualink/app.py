@@ -8,10 +8,12 @@ logging.basicConfig(level=logging.INFO)
 
 app = Flask(__name__)
 
+
 # Home route
 @app.route('/')
 def index():
     return render_template('index.html', languages=supported_languages)
+
 
 # Translation route (uses the translation model logic)
 @app.route('/translate', methods=['POST'])

@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from lingualink.models.translation import translate_text
-from .utils.wikipedia import get_wikipedia_translation
+from .utils.wikipedia_translation import get_wikipedia_translation
 import logging
 from .supported_languages import supported_languages
 

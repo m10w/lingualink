@@ -453,6 +453,19 @@ async = ["asgiref (>=3.2)"]
 dotenv = ["python-dotenv"]
 
 [[package]]
+name = "flask-testing"
+version = "0.8.1"
+description = "Unit testing for Flask"
+optional = false
+python-versions = "*"
+files = [
+    {file = "Flask-Testing-0.8.1.tar.gz", hash = "sha256:0a734d7b68e63a9410b413cd7b1f96456f9a858bd09a6222d465650cc782eb01"},
+]
+
+[package.dependencies]
+Flask = "*"
+
+[[package]]
 name = "frozenlist"
 version = "1.4.1"
 description = "A list-like structure which implements collections.abc.MutableSequence"
@@ -2877,4 +2890,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "a0e5ed8dccff8bf9a4e36dcdf887030df41369dd8dd6e743c04d0ab0e7d1ddf4"
+content-hash = "606e000e26da1db7fd74c9ebd16aa1f7bc84af5e1d348ca810361accd6cfa16b"

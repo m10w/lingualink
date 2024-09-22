@@ -33,6 +33,14 @@ jobs:
       - name: Install dependencies with Poetry
         run: poetry install
 
-      # Run Pytest
-      - name: Run Unit Tests
-        run: poetry run pytest
+      # Run Pytest with coverage
+      - name: Run Unit Tests with Coverage
+        run: poetry run pytest --cov=lingualink --cov-report=xml
+
+      # Upload coverage report to codecov
+      - name: Upload coverage to codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage.xml
+          flags: unittests
+          name: codecov-coverage

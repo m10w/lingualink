@@ -20,3 +20,9 @@ def test_translation_route(client):
     response = client.post("/translate", json={"word": "hello", "language": "de"})
     assert response.status_code == 200
     assert b"Guten Tag" in response.data
+
+def test_invalid_inputs(client):
+    """Test the behavior with invalid inputs"""
+    response = client.post("/translate", json={"word": "", "language": ""})
+    assert response.status_code == 400
+    assert b"error" in response.data

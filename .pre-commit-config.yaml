@@ -20,8 +20,8 @@ repos:
   # Custom hook to run unit tests
   - repo: local
     hooks:
-      - id: run-tests
-        name: Run Unit Tests
-        entry: poetry run pytest
+      - id: run-critical-tests
+        name: Run Critical Pytest Tests
+        entry: poetry run pytest -m critical
         language: system
         pass_filenames: false

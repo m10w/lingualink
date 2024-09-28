@@ -29,6 +29,7 @@
                 <div id="result" class="mt-4">
                     <h4>Translation Results</h4>
                     <p><strong>Wikipedia translation:</strong> <span id="wikipedia-translation">N/A</span></p>
+                    <p><strong>Wikipedia suggestion:</strong> <span id="wikipedia-suggestion">N/A</span></p>
                     <p><strong>Machine translation:</strong> <span id="machine-translation">N/A</span></p>
                 </div>
             </div>
@@ -52,6 +53,7 @@
                 }),
                 success: function(response) {
                     $('#wikipedia-translation').text(response.wikipedia_translation || 'N/A');
+                    $('#wikipedia-suggestion').text(response.wikipedia_suggestion || 'N/A');
                     $('#machine-translation').text(response.machine_translation || 'N/A');
                 },
                 error: function() {

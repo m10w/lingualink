@@ -44,8 +44,10 @@ def translate():
 
     return jsonify(
         {
-            "wikipedia_translation": wikipedia_translation
+            "wikipedia_translation": wikipedia_translation.get('translation')
             or "No Wikipedia translation available",
+            "wikipedia_suggestion": wikipedia_translation.get('suggestion')
+            or "",
             "machine_translation": machine_translation
             or "No Machine translation available",
         }

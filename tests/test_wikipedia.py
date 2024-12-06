@@ -22,7 +22,7 @@ def test_get_wikipedia_translation_success(mock_get):
     mock_get.return_value.json.return_value = mock_response
 
     result = get_wikipedia_translation("Hello", "de")
-    assert result == "Hallo"
+    assert result['translation'] == "Hallo"
 
 
 # Test case 2: No translation found
@@ -36,7 +36,7 @@ def test_get_wikipedia_translation_no_translation(mock_get):
     mock_get.return_value.json.return_value = mock_response
 
     result = get_wikipedia_translation("Hello", "de")
-    assert result is None
+    assert result['translation'] is None
 
 
 # Test case 3: Wikipedia page not found
@@ -47,7 +47,7 @@ def test_get_wikipedia_translation_page_not_found(mock_get):
     mock_get.return_value.json.return_value = mock_response
 
     result = get_wikipedia_translation("NonExistentWord", "de")
-    assert result is None
+    assert result['translation'] is None
 
 
 # Test case 4: API request failure
